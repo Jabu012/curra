@@ -3,39 +3,82 @@ import { AIDoctorAgents } from "@/shared/list";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { notes } = await req.json();
   try {
+    const { notes } = await req.json();
+
+    if (!notes) {
+      return NextResponse.json(
+        { error: "Notes are required" },
+        { status: 400 }
+      );
+    }
+
     const completion = await openai.chat.completions.create({
       model: "google/gemini-2.0-flash-001",
+      temperature: 0, // important for consistent JSON
       messages: [
-        { role: "system", content: JSON.stringify(AIDoctorAgents) },
-        { 
-          role: "user", 
+        {
+          role: "system",
           content: `
-User Notes/Symptoms: ${notes}
+You are a medical routing AI.
 
-From the provided doctor list above, return ONLY an array of matching doctor IDs.
-Do NOT create new objects.
-Return JSON array of numbers only.
-Example: [1,2]
-`
-        }
+You MUST:
+- Return ONLY a JSON array of doctor IDs.
+- Do NOT explain.
+- Do NOT wrap in markdown.
+- Do NOT return text.
+- Example valid response: [1,2]
+
+Available Doctors:
+${AIDoctorAgents.map(
+  (doc) => `ID: ${doc.id} - ${doc.specialist}: ${doc.description}`
+).join("\n")}
+`,
+        },
+        {
+          role: "user",
+          content: `User Symptoms:\n${notes}`,
+        },
       ],
     });
 
-    const rawResp = completion.choices[0].message || '';
-    //@ts-ignore
-    const Resp = rawResp.content.trim().replace('```json','').replace('```','');
-    const JSONResp = JSON.parse(Resp);
+    const raw = completion.choices[0]?.message?.content ?? "";
 
-    // Filter original doctor list using returned IDs
+    // Clean possible markdown wrapping
+    const cleaned = raw
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    let parsedIds: number[] = [];
+
+    try {
+      parsedIds = JSON.parse(cleaned);
+    } catch {
+      console.error("Invalid JSON from model:", raw);
+      return NextResponse.json(
+        { error: "AI returned invalid format" },
+        { status: 500 }
+      );
+    }
+
+    if (!Array.isArray(parsedIds)) {
+      return NextResponse.json(
+        { error: "AI did not return an array" },
+        { status: 500 }
+      );
+    }
+
     const filteredDoctors = AIDoctorAgents.filter((doc) =>
-      JSONResp.includes(doc.id)
+      parsedIds.includes(doc.id)
     );
 
     return NextResponse.json(filteredDoctors);
-
-  } catch (e) {
-    return NextResponse.json(e);
+  } catch (error) {
+    console.error("Doctor matching error:", error);
+    return NextResponse.json(
+      { error: "Doctor matching failed" },
+      { status: 500 }
+    );
   }
 }

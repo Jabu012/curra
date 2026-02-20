@@ -6,29 +6,41 @@ import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
+  // verify the requester is authenticated via Clerk
   const user = await currentUser();
 
+  if (!user) {
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+  }
+
+  const email = user.primaryEmailAddress?.emailAddress;
+  if (!email) {
+    return NextResponse.json({ error: 'Missing email address' }, { status: 400 });
+  }
+
   try {
-   
-    const users = await db.select().from(usersTable)
-    //@ts-ignore  
-    .where(eq(usersTable.email, user?.primaryEmailAddress?.emailAddress));
-      
-if (users?.length == 0) {
-  const result = await db.insert(usersTable).values({
-    //@ts-ignore
-    name: user?.fullName,
-    email: user?.primaryEmailAddress?.emailAddress,
-    credits: 10
-    //@ts-ignore
-  }).returning({usersTable});
-  return NextResponse.json(result[0]?.usersTable);
-}
+    const users = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.email, email));
 
+    if (users.length === 0) {
+      const result = await db
+        .insert(usersTable)
+        .values({
+          name: user.fullName ?? '',
+          email,
+          credits: 10,
+        })
+        .returning();
 
-return NextResponse.json(users[0]);
+      // result will be an array of inserted rows
+      return NextResponse.json(result[0]);
+    }
 
+    return NextResponse.json(users[0]);
   } catch (e) {
-    return NextResponse.json(e);
+    console.error('users POST error', e);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
