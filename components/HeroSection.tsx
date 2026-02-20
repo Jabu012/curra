@@ -185,8 +185,7 @@ export default function HeroSection() {
           className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           Enable intelligent voice-powered healthcare that delivers accurate
-          guidance instantly while automating appointments, symptom assessment,
-          and continuous care — 24/7.
+          guidance instantly symptom assessment and continuous care — 24/7.
         </motion.p>
 
         {/* CTAs */}
@@ -213,8 +212,8 @@ export default function HeroSection() {
           className="flex flex-wrap items-center justify-center gap-6 mt-10"
         >
           {[
-            { icon: Shield, text: "HIPAA Compliant" },
-            { icon: Clock, text: "99.9% Uptime SLA" },
+            { icon: Shield, text: "Privacy-First" },
+            { icon: Clock, text: "Available 24/7" },
           ].map(({ icon: Icon, text }) => (
             <div
               key={text}

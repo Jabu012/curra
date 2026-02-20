@@ -24,7 +24,7 @@ import {
 const navLinks = [
   { label: "Home", path: "/", icon: Home },
   { label: "History", path: "/dashboard/history", icon: History },
-  { label: "Pricing", path: "/pricing", icon: DollarSign },
+  { label: "Pricing", path: "/dashboard/billing", icon: DollarSign },
   
 ];
 

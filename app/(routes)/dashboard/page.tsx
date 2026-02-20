@@ -46,9 +46,11 @@ function Dashboard() {
       <div className='flex justify-between items-center mb-8'>
         <h2 className='font-bold text-3xl bg-gradient-to-r from-indigo-600 to-teal-600 bg-clip-text text-transparent'>My Dashboard</h2>
         <AddNewSessionDialog />
+      
       </div>
       <DoctorsAgentList />
     </div>
+   
   );
 }
 
