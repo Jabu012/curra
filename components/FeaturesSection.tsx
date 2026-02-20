@@ -14,45 +14,45 @@ import {
 const features = [
   {
     icon: Mic,
-    title: "Voice-First Patient Interaction",
+    title: "Start With a Simple Conversation",
     description:
-      "Natural language processing allows patients to interact seamlessly through voice commands, reducing friction and improving accessibility for all demographics.",
-    badge: "Core",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Automated Appointment Scheduling",
-    description:
-      "AI-driven scheduling that integrates with existing EHR systems to book, reschedule, and send reminders — without human intervention.",
-    badge: "Automation",
+      "No medical jargon. No complex forms. Just describe what you're feeling, and the system turns your words into structured health insights.",
+    badge: "Experience",
   },
   {
     icon: HeartPulse,
-    title: "Real-Time Symptom Assessment",
+    title: "Signals That Matter",
     description:
-      "Clinically validated triage algorithms assess patient symptoms and escalate urgent cases instantly to the appropriate care team.",
-    badge: "Clinical",
+      "The platform detects meaningful symptom patterns and highlights areas that may require closer attention.",
+    badge: "Clarity",
   },
   {
     icon: Brain,
-    title: "Intelligent Clinical Decision Support",
+    title: "Guidance — Not Guesswork",
     description:
-      "Machine learning models trained on millions of clinical cases provide real-time insights to support physician decision-making.",
-    badge: "AI",
+      "Receive informed next-step suggestions to help you prepare before speaking to a healthcare professional.",
+    badge: "Support",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Know What to Do Next",
+    description:
+      "Whether it’s self-care, booking an appointment, or seeking urgent evaluation — you leave with direction.",
+    badge: "Direction",
   },
   {
     icon: Lock,
-    title: "Enterprise-Grade Security",
+    title: "Private by Default",
     description:
-      "End-to-end encryption, HIPAA compliance, SOC 2 Type II certification, and role-based access controls to protect patient data.",
-    badge: "Security",
+      "Your health information stays protected with secure storage practices and controlled access.",
+    badge: "Trust",
   },
   {
     icon: BarChart3,
-    title: "Analytics & Reporting Dashboard",
+    title: "From Symptoms to Summary",
     description:
-      "Comprehensive dashboards offering real-time operational metrics, patient flow analytics, and care outcome tracking.",
-    badge: "Insights",
+      "Every conversation becomes a clean, structured health summary you can download or share with a clinician.",
+    badge: "Prepared",
   },
 ];
 

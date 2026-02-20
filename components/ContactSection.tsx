@@ -17,22 +17,22 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Phone",
-    value: "+1 (800) 287-2644",
-    sub: "Mon–Fri, 8am–6pm EST",
-    href: "tel:+18002872644",
+    value: "+27 (71) 452-4235",
+    sub: "Mon–Fri, 8am–5pm (GMT +2)",
+    href: "tel:+2771 452 4235",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "hello@curaai.health",
-    sub: "We respond within 2 hours",
-    href: "mailto:hello@curaai.health",
+    value: "dubejabulani16@gmail.com",
+    sub: "We will get back to you shortly",
+    href: "mailto:dubejabulani16@gmail.com",
   },
   {
     icon: MapPin,
     label: "Headquarters",
-    value: "350 Fifth Avenue, Suite 6400",
-    sub: "New York, NY 10118, USA",
+    value: "8A Millenium Village Carlswald Midrand",
+    sub: "Johannesburg, 1685, Gauteng, South Africa",
     href: "https://maps.google.com",
   },
   {
@@ -156,7 +156,7 @@ export default function ContactSection() {
                   Message Received!
                 </h3>
                 <p className="text-white/60">
-                  Our team will reach out within 2 business hours.
+                  Our team will reach out to you shortly.
                 </p>
               </div>
             ) : (

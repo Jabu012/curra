@@ -35,7 +35,7 @@ const menuOptions = [
   {
     id: 4,
     name: "Pricing",
-    path: "/pricing",
+    path: "/dashboard/billing",
     icon: DollarSign,
   },
   {
