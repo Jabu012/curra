@@ -1,37 +1,50 @@
-import React from 'react'
-import Image from 'next/image'
-import { doctorAgent } from './DoctorsAgentCard'
+import React from "react";
+import Image from "next/image";
+import { doctorAgent } from "./DoctorsAgentCard";
 
-type props = {
-  doctorAgent: doctorAgent,
-  setSelectedDoctor: any,
-  selectedDoctor?: doctorAgent
-}
+type Props = {
+  doctorAgent: doctorAgent;
+  setSelectedDoctor: (doctor: doctorAgent) => void;
+  selectedDoctor?: doctorAgent;
+};
 
-function SuggestedDoctorCard({ doctorAgent, setSelectedDoctor, selectedDoctor }: props) {
+function SuggestedDoctorCard({
+  doctorAgent,
+  setSelectedDoctor,
+  selectedDoctor,
+}: Props) {
+  const isSelected = selectedDoctor?.id === doctorAgent.id;
+
   return (
     <div
-      className={`flex flex-col items-center border rounded-2xl shadow p-5 
-hover:border-blue-500 cursor-pointer ${
-        selectedDoctor?.id == doctorAgent.id && 'border-blue-500'
-      }`}
       onClick={() => setSelectedDoctor(doctorAgent)}
+      className={`flex items-center gap-3 px-3 py-2 border rounded-md cursor-pointer transition
+        ${
+          isSelected
+            ? "border-blue-600 bg-blue-50"
+            : "border-gray-200 hover:border-gray-400"
+        }`}
     >
-      <Image src={doctorAgent?.image}
-        alt={doctorAgent?.specialist}
-        width={70}
-        height={70}
-        className='w-[50px] h-[50px] rounded-4xl object-cover'
+      {/* Small Image */}
+      <Image
+        src={doctorAgent.image}
+        alt={doctorAgent.specialist}
+        width={32}
+        height={32}
+        className="rounded-full object-cover"
       />
 
-      <h2 className="font-bold text-sm text-center">
-        {doctorAgent.specialist}
-      </h2>
-      <p className="text-xs text-center line-clamp-2">
-        {doctorAgent.description}
-      </p>
+      {/* Text */}
+      <div className="flex flex-col leading-tight">
+        <span className="text-sm font-medium text-gray-900">
+          {doctorAgent.specialist}
+        </span>
+        <span className="text-xs text-gray-500 line-clamp-1">
+          {doctorAgent.description}
+        </span>
+      </div>
     </div>
-  )
+  );
 }
 
-export default SuggestedDoctorCard
+export default SuggestedDoctorCard;
